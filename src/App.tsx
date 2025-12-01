@@ -6,22 +6,14 @@ import { ProveedorEdicionImagenes } from './contextos/edicion-imagenes-contexto'
 import InicioSesion from './paginas/InicioSesion';
 import Registro from './paginas/Registro';
 import Inicio from './paginas/Inicio';
-import InicioMobile from './paginas/Inicio_movil';
 import Pacientes from './paginas/Pacientes';
-import PacientesMobile from './paginas/Pacientes_movil';
 import Agenda from './paginas/Agenda';
-import AgendaMobile from './paginas/Agenda_movil';
 import EdicionImagenes from './paginas/EdicionImagenes';
-import EdicionImagenesMobile from './paginas/EdicionImagenes_movil';
 import Tratamientos from './paginas/Tratamientos';
-import TratamientosMobile from './paginas/Tratamientos_movil';
 import Finanzas from './paginas/Finanzas';
-import FinanzasMobile from './paginas/Finanzas_movil';
 import Inventarios from './paginas/Inventarios';
-import InventariosMobile from './paginas/Inventarios_movil';
 import Configuracion from './paginas/Configuracion';
-import ConfiguracionMobile from './paginas/Configuracion_movil';
-import { Loader2 } from 'lucide-react';
+import { Loader2, Smartphone } from 'lucide-react';
 import { useResponsive } from './hooks/use-responsive';
 
 function RutaProtegida({ children }: { children: React.ReactNode }) {
@@ -66,44 +58,68 @@ function RutaPublica({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }
 
+function PantallaNoSoportada() {
+  return (
+    <div className="flex h-screen w-full flex-col items-center justify-center bg-background p-6 text-center">
+      <div className="mb-6 rounded-full bg-destructive/10 p-6">
+        <Smartphone className="h-16 w-16 text-destructive" />
+      </div>
+      <h1 className="mb-2 text-2xl font-bold text-foreground">
+        Dispositivo no soportado
+      </h1>
+      <p className="text-muted-foreground text-lg max-w-md">
+        Esta aplicación no está disponible para celulares o tablets. Por favor, ingresa desde una computadora o laptop para acceder al sistema.
+      </p>
+    </div>
+  );
+}
+
 function InicioResponsive() {
-  const { es_movil } = useResponsive();
-  return es_movil ? <InicioMobile /> : <Inicio />;
+  const { es_movil, es_tablet } = useResponsive();
+  if (es_movil || es_tablet) return <PantallaNoSoportada />;
+  return <Inicio />;
 }
 
 function PacientesResponsive() {
-  const { es_movil } = useResponsive();
-  return es_movil ? <PacientesMobile /> : <Pacientes />;
+  const { es_movil, es_tablet } = useResponsive();
+  if (es_movil || es_tablet) return <PantallaNoSoportada />;
+  return <Pacientes />;
 }
 
 function AgendaResponsive() {
-  const { es_movil } = useResponsive();
-  return es_movil ? <AgendaMobile /> : <Agenda />;
+  const { es_movil, es_tablet } = useResponsive();
+  if (es_movil || es_tablet) return <PantallaNoSoportada />;
+  return <Agenda />;
 }
 
 function EdicionImagenesResponsive() {
-  const { es_movil } = useResponsive();
-  return es_movil ? <EdicionImagenesMobile /> : <EdicionImagenes />;
+  const { es_movil, es_tablet } = useResponsive();
+  if (es_movil || es_tablet) return <PantallaNoSoportada />;
+  return <EdicionImagenes />;
 }
 
 function TratamientosResponsive() {
-  const { es_movil } = useResponsive();
-  return es_movil ? <TratamientosMobile /> : <Tratamientos />;
+  const { es_movil, es_tablet } = useResponsive();
+  if (es_movil || es_tablet) return <PantallaNoSoportada />;
+  return <Tratamientos />;
 }
 
 function FinanzasResponsive() {
-  const { es_movil } = useResponsive();
-  return es_movil ? <FinanzasMobile /> : <Finanzas />;
+  const { es_movil, es_tablet } = useResponsive();
+  if (es_movil || es_tablet) return <PantallaNoSoportada />;
+  return <Finanzas />;
 }
 
 function InventariosResponsive() {
-  const { es_movil } = useResponsive();
-  return es_movil ? <InventariosMobile /> : <Inventarios />;
+  const { es_movil, es_tablet } = useResponsive();
+  if (es_movil || es_tablet) return <PantallaNoSoportada />;
+  return <Inventarios />;
 }
 
 function ConfiguracionResponsive() {
-  const { es_movil } = useResponsive();
-  return es_movil ? <ConfiguracionMobile /> : <Configuracion />;
+  const { es_movil, es_tablet } = useResponsive();
+  if (es_movil || es_tablet) return <PantallaNoSoportada />;
+  return <Configuracion />;
 }
 
 function App() {
@@ -114,89 +130,89 @@ function App() {
           <ProveedorEdicionImagenes>
             <BrowserRouter>
               <Routes>
-            <Route
-              path="/inicio-sesion"
-              element={
-                <RutaPublica>
-                  <InicioSesion />
-                </RutaPublica>
-              }
-            />
-            <Route
-              path="/registro"
-              element={
-                <RutaPublica>
-                  <Registro />
-                </RutaPublica>
-              }
-            />
-            <Route
-              path="/inicio"
-              element={
-                <RutaProtegida>
-                  <InicioResponsive />
-                </RutaProtegida>
-              }
-            />
-            <Route
-              path="/pacientes"
-              element={
-                <RutaProtegida>
-                  <PacientesResponsive />
-                </RutaProtegida>
-              }
-            />
-            <Route
-              path="/agenda"
-              element={
-                <RutaProtegida>
-                  <AgendaResponsive />
-                </RutaProtegida>
-              }
-            />
-            <Route
-              path="/edicion-imagenes"
-              element={
-                <RutaProtegida>
-                  <EdicionImagenesResponsive />
-                </RutaProtegida>
-              }
-            />
-            <Route
-              path="/tratamientos"
-              element={
-                <RutaProtegida>
-                  <TratamientosResponsive />
-                </RutaProtegida>
-              }
-            />
-            <Route
-              path="/finanzas"
-              element={
-                <RutaProtegida>
-                  <FinanzasResponsive />
-                </RutaProtegida>
-              }
-            />
-            <Route
-              path="/inventarios"
-              element={
-                <RutaProtegida>
-                  <InventariosResponsive />
-                </RutaProtegida>
-              }
-            />
-            <Route
-              path="/configuracion"
-              element={
-                <RutaProtegida>
-                  <ConfiguracionResponsive />
-                </RutaProtegida>
-              }
-            />
-              <Route path="/" element={<Navigate to="/inicio" replace />} />
-            </Routes>
-          </BrowserRouter>
+                <Route
+                  path="/inicio-sesion"
+                  element={
+                    <RutaPublica>
+                      <InicioSesion />
+                    </RutaPublica>
+                  }
+                />
+                <Route
+                  path="/registro"
+                  element={
+                    <RutaPublica>
+                      <Registro />
+                    </RutaPublica>
+                  }
+                />
+                <Route
+                  path="/inicio"
+                  element={
+                    <RutaProtegida>
+                      <InicioResponsive />
+                    </RutaProtegida>
+                  }
+                />
+                <Route
+                  path="/pacientes"
+                  element={
+                    <RutaProtegida>
+                      <PacientesResponsive />
+                    </RutaProtegida>
+                  }
+                />
+                <Route
+                  path="/agenda"
+                  element={
+                    <RutaProtegida>
+                      <AgendaResponsive />
+                    </RutaProtegida>
+                  }
+                />
+                <Route
+                  path="/edicion-imagenes"
+                  element={
+                    <RutaProtegida>
+                      <EdicionImagenesResponsive />
+                    </RutaProtegida>
+                  }
+                />
+                <Route
+                  path="/tratamientos"
+                  element={
+                    <RutaProtegida>
+                      <TratamientosResponsive />
+                    </RutaProtegida>
+                  }
+                />
+                <Route
+                  path="/finanzas"
+                  element={
+                    <RutaProtegida>
+                      <FinanzasResponsive />
+                    </RutaProtegida>
+                  }
+                />
+                <Route
+                  path="/inventarios"
+                  element={
+                    <RutaProtegida>
+                      <InventariosResponsive />
+                    </RutaProtegida>
+                  }
+                />
+                <Route
+                  path="/configuracion"
+                  element={
+                    <RutaProtegida>
+                      <ConfiguracionResponsive />
+                    </RutaProtegida>
+                  }
+                />
+                <Route path="/" element={<Navigate to="/inicio" replace />} />
+              </Routes>
+            </BrowserRouter>
           </ProveedorEdicionImagenes>
         </ProveedorMenu>
       </ProveedorAutenticacion>

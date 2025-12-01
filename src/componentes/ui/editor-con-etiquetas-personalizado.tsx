@@ -8,7 +8,7 @@ import { BulletList } from '@tiptap/extension-bullet-list';
 import { OrderedList } from '@tiptap/extension-ordered-list';
 import { TextAlign } from '@tiptap/extension-text-align';
 import { FontSize } from '@/lib/tiptap-font-size';
-import { Node, mergeAttributes, InputRule, wrappingInputRule } from '@tiptap/core';
+import { Node, mergeAttributes, wrappingInputRule } from '@tiptap/core';
 import { useEffect, useState, forwardRef, useImperativeHandle, useRef } from 'react';
 import { Button } from '@/componentes/ui/button';
 import { Toggle } from '@/componentes/ui/toggle';
@@ -166,7 +166,7 @@ const CustomBulletList = BulletList.extend({
       wrappingInputRule({
         find: /^\s*([-+*])\s$/,
         type: this.type,
-        getAttributes: (match) => {
+        getAttributes: () => {
           const attributes = this.editor.state.selection.$from.parent.attrs
           return attributes.textAlign ? { textAlign: attributes.textAlign } : {}
         },
@@ -211,7 +211,6 @@ export const EditorConEtiquetasPersonalizado = forwardRef<EditorHandle, EditorCo
   const marginRightPx = Number.isFinite(rawMarginRightPx) && rawMarginRightPx >= 0 ? rawMarginRightPx : 0;
 
   const contentWidthPx = Math.max(0, pageWidthPx - marginLeftPx - marginRightPx);
-  const contentHeightPx = Math.max(0, pageHeightPx - marginTopPx - marginBottomPx);
   const effectivePageOffset = pageHeightPx - marginTopPx - marginBottomPx;
   const [maskClipPath, setMaskClipPath] = useState<string>('none');
 

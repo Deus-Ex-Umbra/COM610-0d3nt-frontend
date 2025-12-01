@@ -6,7 +6,7 @@ import { Input } from '@/componentes/ui/input';
 import { ScrollArea } from '@/componentes/ui/scroll-area';
 import { Switch } from '@/componentes/ui/switch';
 import { Popover, PopoverContent, PopoverTrigger } from '@/componentes/ui/popover';
-import { plantillasConsentimientoApi, archivosApi, catalogoApi } from '@/lib/api';
+import { plantillasConsentimientoApi, catalogoApi } from '@/lib/api'; // Corrección: eliminado archivosApi
 import { PlantillaConsentimiento } from '@/tipos';
 import { useToast } from '@/hooks/use-toast';
 import { FileText, Settings } from 'lucide-react';
@@ -40,7 +40,7 @@ interface ValorEtiqueta {
 }
 
 export function GeneradorConsentimientoPaciente({
-  paciente_id,
+  // paciente_id, // Corrección: eliminado paciente_id de la desestructuración
   paciente_nombre,
   paciente_apellidos,
   paciente_telefono,
